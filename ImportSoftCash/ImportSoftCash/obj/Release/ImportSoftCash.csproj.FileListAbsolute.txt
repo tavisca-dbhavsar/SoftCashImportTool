@@ -1,0 +1,15 @@
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\ImportSoftCash.exe.config
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\App.config
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\ImportSoftCash.exe
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\ImportSoftCash.pdb
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\Microsoft.Data.Edm.dll
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\Microsoft.Data.OData.dll
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\Microsoft.Data.Services.Client.dll
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\System.Spatial.dll
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\Microsoft.Data.Edm.xml
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\Microsoft.Data.OData.xml
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\Microsoft.Data.Services.Client.xml
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\bin\Release\System.Spatial.xml
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\obj\Release\ImportSoftCash.exe
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\obj\Release\ImportSoftCash.pdb
+D:\Git\Consol apps\ImportSoftCash\ImportSoftCash\obj\Release\ImportSoftCash.csprojResolveAssemblyReference.cache

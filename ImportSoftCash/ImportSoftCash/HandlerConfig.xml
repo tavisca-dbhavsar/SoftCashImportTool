@@ -1,0 +1,413 @@
+﻿<?xml version="1.0"?>
+<settings>
+  <!--===============================plugins declaration ==================================== -->
+  <plugins>
+    <!-- BaseAccount, BaseOrder, BaseAccountOrder plugins will have type = IAccountOrderHandler -->
+    <!-- ICallbackHandler plugins will have type = handler -->
+    <!-- attributes are to be added as xml attributes as shown in sample-->
+    <!-- Example -->
+    <!-- 
+    <add name="testAccountHandler" type="IAccountOrderHandler" a1="v1" a2="v2" x="y"/>
+    <add name="testOrderHandler" type="IAccountOrderHandler" a1="v1" a2="v2"/>
+    <add name="signupHandlerA" type="handler" a1="v1" a2="v2"/>
+    <add name="signupHandlerB" type="handler" a1="v1" a2="v2"/>
+    -->
+    <!-- Inner handlers. These will all run inside a composite callback handler -->
+    <!--======================================================================================== -->
+    <add name="lyrisSync" type="innerHandler" ListName="allmembers"
+        CancelledStatusCodes="Terminated|Auto Cancelled|Resigned"
+         VacationPreferences="Destinations|Interests|TravelArrangements|PreferredVacations|LifeStyle|TravelTime|CruisedBefore|Income|"
+         AccountOptOutConditions="ReferralId:Sears|" />
+    <add name="accountMembershipUpdate" type="innerHandler" />
+    <add name="accountAccessUpdate" type="innerHandler" />
+    <add name="accountReactivation" type="innerHandler" ExcludeDeactivationStatusCodes="Terminated,Suspended,Resigned,Auto Cancelled" AdminUsername="sa" AdminPassword="admin" />
+    <add name="BuyOfBuysHandler" type="innerHandler"
+         SendNotification="false"
+         NotificationTo="wv-notifications@tavisca.com"
+         NotificationBce="wv-notifications@tavisca.com"
+         NotificationFrom="BuyOfBuysHandler@worldventures.com"
+         BuyOfBuysURL="http://dt.buyofbuys.com/api/bob-user-api.php"
+         CreateActionKey="create_user"
+         DeleteActionKey="delete_user"
+         StatusCodeToConsider="Deleted|Auto Cancelled|Suspended|Terminated|Resigned"
+         APIKey="8754854"
+         RequestType="GET"
+         DeleteResponseType="delete is set"/>
+    <add  name="VideoPlusHandler" type="innerHandler"
+        VideoPlusUrl="https://wvemailvideo.com/welcome/vp_sso.php"
+        MembershipTypeMapping="DTO:4|PSP,NoDTO:5|PSP,International:6|PSP:7"
+        VideoPlusEmailTo="wv-notifications@tavisca.com"
+        VideoPlusEmailFrom="Video_Plus_Error@worldventures.com"
+        CancellationStatusCodes = "Deleted|Terminated|Auto Cancelled|Resigned|Suspended|ChargeBack"
+        CancellationType = "UK-Trial"
+        VPKey="95980685-B4DD-AD6A-3AA4-C2457D0439A8_00738724-DEE7-5A06-23C7-ADC4C54390D5"
+        ClientId="WorldVentures"/>
+
+
+
+    <add  name="NOXSyncHandler" type="innerHandler"
+        NOXUrl="http://www.dreamteambuilder.biz/api/wv/"
+        AccountCancelledStatus="Auto Cancelled|Resigned|Suspended|Terminated"
+        SendSuccessEmail="false"
+        SendFailureEmail="false"
+        FromEmailId="NetworxOnlineHandler@worldventures.com"
+        ToEmailIdList="wv-notifications@tavisca.com"
+          RequestType="GET"/>
+    <add name="preferredCustomerUpline" type="innerHandler" SponsorMembership="LTC" SendSuccessEmail="false" SendExceptionOrFailureEmail="true"
+         FromEmailId="PreferredCustomerUplineHandler@worldventures.com" ToEmailIdList="wv-notifications@tavisca.com" EmailTemplatePreferred="PreferredAccount"
+         SendPreferredMailToUser="true"  PreferredMailAddOverride="" FromPreferredEmailId="travel@rovia.com" PreferredMailBCC="wv-notifications@tavisca.com"
+         BaseUrl="http://{0}.rovia.com" PreferredMailSubject="Rovia: Your preferred account details" />
+
+    <add name="MyAssist" type="innerHandler" NotificationTo="wv-notifications@tavisca.com"
+         NotificationBcc="wv-notifications@tavisca.com"
+         NotificationFrom="MyAssist_Support@worldventures.com"
+         StatusCode="Deleted|Auto Cancelled|Suspended|Terminated|Resigned|ChargeBack"
+         SendSuccessNotification="true"
+         SendFailureNotification="true"
+         MyAssistURL="https://api.myassist.com/ws1/"
+         WVPassword="552ee708-c6d3-4816-bd0e-080dba46218a"
+         RoviaPassword="38698179-F094-42E2-B1F8-202966A74675"
+         WVPartnerCode="RV1"
+         RoviaPartnerCode="RV2"
+         WVPartnerName="WorldVentures DreamTrips"
+         RoviaPartnerName="Rovia"
+         WVDomesticProductCode="6"
+		 WVInternationalProductCode="115"
+         FusebillProductMapping="002-Rovia Premium Escapes:118|003-Rovia Executive Escapes:119|002-Rovia Premium Escapes Monthly:118|003-Rovia Executive Escapes Monthly:119"/>
+    <add name="OfflineSignUp" type="innerHandler" ProviderName="Exigo"
+         EnterprisePortalApplication="EnterprisePortal_v_1_0" EnterprisePortalApplicationRole="Admin"
+         DreamtripLifeApplication="DreamLifeBackOffice_v_1_0" DreamtripLifeApplicationRole="DreamLife" IdentityEnterpriseName="WorldVentures"
+         EnableWelcomeEmail="true" WelcomeEmailPath="WelcomeMember.txt"
+         WelcomeRepresentativePath="WelcomeRepresentative.txt" EmailFrom="support@worldventures.biz"
+         EmailBCC="sgaikwad@tavisca.com" BTARefrenceUrl="https://www.travelcampus.com/cgi-bin/travel/roviareg.cgi?email=[EMail]&amp;code=wvexca"
+         EnableUpdateAppPermission="true"/>
+    <add name="importInTRAMS" type="innerHandler"
+         NotificationContext=""
+         NotificationFrom="roviatestnotification@gmail.com"
+         NotificationTo="pmodani@tavisca.com"
+         TramsActiveStatus="Active|Grace"/>
+    <add name="migratePreferredCustomers" type="innerHandler"
+         NewRole="Traveler"
+         DTLApplicationName="DreamLife_v_1_0"
+         EnterpriseName="WorldVentures" />
+    <add name="SetupWebsiteUrls" type="innerHandler"
+        CompanyMapping=".worldventures.biz,1|.worldventures.com,162428|.rovia.com,162428|.worldventuresdreamtrips.com,1|.dreamtripslife.com,1"
+        BrandMapping=".worldventures.biz,1001|.worldventures.com,137-162428|.worldventuresdreamtrips.com,137-162428|.rovia.com,137-162428|.dreamtripslife.com,1001"
+        DomainMapping=".worldventures.biz,WV|.worldventuresdreamtrips.com,WV|.worldventures.com,Rovia|.rovia.com,Rovia|.dreamtripslife.com,WV"
+        EnterprisePortalApplicationRole=""
+        IdentityEnterpriseName="WorldVentures"
+        TagBasedWebsitesMapping="RBS:.worldventures.biz|LTC:.rovia.com|DTM,DTL,DTS,DTG,DTP:.dreamtrips.com"
+        MembershipBasedWebsitesMapping="RBS,CollegeRBS:.worldventures.biz|LTC:.rovia.com|DTS,DTG,DTP,CollegeDTM,CollegeDTL:.dreamtrips.com"
+        CancellationStatusCode="Terminated|Suspended|Resigned|Auto Cancelled" />
+    <add name="UpdateB2BMemberRole" type="innerHandler"
+       AdminUsername="sa"
+       AdminPassword="admin"
+       B2BApplicationName="B2BPortal"
+       EnterpriseName="WorldVentures"
+       VexiereInferiorRoleMap="VBA:UntrainedVBA|Restricted,VBR:UntrainedVBR|VBA|Restricted,VBS:UntrainedVBS|VBR|VBA|Restricted"
+       FromEmailId="wv-qa-notifications@tavisca.com"
+       ToEmailIdList="abhosale@tavisca.com,rthadhani@tavisca.com" />
+    <add name="iPayoutEWalletPendingPayment" type="innerHandler" IPayoutEmailFrom="IPayoutPendingPaymentCallback_PROD@worldventures.com"
+        IPayoutEmailTo="wv-notifications@tavisca.com"
+        UpdateOrderRetry="1" />
+    <add name ="profileSyncHandler" type="innerHandler" />
+
+    <add  name="VideoPlusShipment" type="innerHandler"
+        VideoPlusUrl="https://www.vpbridge.com/Import/OrderKits"
+        VideoPlusEmailTo="wv-notifications@tavisca.com"
+        VideoPlusEmailFrom="VideoPlus_Error@worldventures.com"
+        SendSuccessNotification="true"
+        SendFailureNotification="true"
+        UserName="worldventures"
+        Password="w0rldV#nt"  />
+
+    <add name ="grapevineAccountHandler" type ="innerHandler"
+       Mode="localonly"
+       AccountUpdateEmailTo ="wv-notifications@tavisca.com"
+       AccountUpdateEmailFrom="AccountUpdateHandler@worldventures.com"
+       SendSuccessEmails="true"
+       ApiKey="NzlGQTE1QjctMTgwNS00RjQzLTk0QzYtRjA1RTU5M0JEMEM3"
+       Token="Demo"
+       ApplicationName="AccountService"
+       GrapevineAdminUsername="MyRovia"
+       GrapevineAdminPassword="zaq1ZAQ!" />
+
+    <add name="AccountUpdate" type="innerHandler"
+       AccountUpdateEmailTo = "wv-notifications@tavisca.com"
+       AccountUpdateEmailFrom = "AccountUpdateHandler@worldventures.com"
+       SendSuccessEmails = "false"/>
+    <add name="MySqlProvider" type="innerHandler"
+        StatusCode="Deleted|Auto Cancelled|Suspended|Terminated|Resigned|ChargeBack"
+         />
+
+    <add name="AccountCancellation" type="innerHandler"
+     CancelledStatusCodes = "Terminated,Suspended,Resigned,Auto Cancelled"
+    MaestroUsername = "rovia"
+    MaestroPassword = "fr87jqpp89844h"
+    MaestroURL = "http://www.personalmaestro.com/xml/xmlpost.php"
+    MaestroCallType = "live"
+    NotificationFrom = "Account_Cancellation@worldventures.com"
+    NotificationTo = "wv-cancellation@tavisca.com"
+    SendSuccessEmail = "false"
+    SendFailureEmail = "true"/>
+
+    <add name="AutoshipCancellation" type="innerHandler"
+         NotificationMailTo="wv-notifications@tavisca.com"
+         NotificationMailFrom="support@worldventures.biz"
+         RecurringProductCodes="DTS:P0001030100_1MUN002A|DTG:P0001030200_1MUN003A|DTP:P0001030300_1MUN004A|iDTG:P0001030800_1MIN003A|iDTP:P0001030900_1MIN004A"/>
+
+    <add name="onlineSignupHandler" type="innerHandler"  EnterprisePortalApplication="EnterprisePortal_v_1_0" EnterprisePortalApplicationRole="Admin"
+       DreamtripLifeBOApplication="DreamLifeBackOffice_v_1_0" DreamtripLifeBOApplicationRole="DreamLife" IdentityEnterpriseName="WorldVentures"
+        DreamtripLifeApplication="Dreamlife_v_1_0" DreamtripLifeApplicationRole="Traveler" />
+
+    <add name="ExigoAccountCreation" type="innerHandler"></add>
+
+    <add name="SoftCashMemberCreation" type="innerHandler"
+         ValidStatusCodes="Approved"/>
+
+    <!--- Callback handlers -->
+    <!--======================================================================================== -->
+
+
+
+
+    <add name="dtmInterfacing" type="handler" NotificationContext="All|OnError|OnSuccess" NotificationFrom="roviatestnotification@gmail.com" NotificationTo="wv-notifications@tavisca.com"/>
+
+    <add name="b2bReActivateMembership" type="handler" NotificationFrom="corpaccts@rovia.com"
+         NotificationTo="wv-notifications@tavisca.com"
+         NotificationBcc="pmodani@tavisca.com"/>
+    <add name="b2bCancelMembership" type="handler" NotificationTo="wv-notifications@tavisca.com"
+         NotificationBcc="pmodani@tavisca.com"
+         NotificationFrom="corpaccts@rovia.com"/>
+    <add name="b2bPlaceAdvancePay" type="handler" />
+    <add name="b2bCreateInvoice" type="handler"
+         NotificationFrom="corpaccts@rovia.com"
+         NotificationTo="NationalAccts@worldventures.com"
+         NotificationCC=""
+         NotificationBCC="wv-notifications@tavisca.com,"
+         RCSMonthlyProductSeriesAmount="RCS_Escape:19.99|RCS_Premium:24.99|RCS_Executive:69.99"
+         RCSInitialProductSeriesAmount = "RCS_Escape:19.99|RCS_Premium:24.99|RCS_Executive:69.99"/>
+    <add name="b2bChargeInvoice" type="handler"
+         NachaFilePath="D:\_Logs\Nacha"
+         MerchantAccountID="D224C27C-324B-4358-A3BE-C377E0A1E410"
+         CCSuccessEmailFrom="corpaccts@rovia.com"
+         CCSuccessEmailTo="wv-notifications@tavisca.com|NationalAccts@worldventures.com"
+         CCFailureEmailFrom="corpaccts@rovia.com"
+         CCFailureEmailTo="wv-notifications@tavisca.com|NationalAccts@worldventures.com"
+         NachaEmailFrom="corpaccts@rovia.com"
+         NachaEmailTo="wv-notifications@tavisca.com"
+         NachaFailEmailFrom="corpaccts@rovia.com"
+         NachaFailEmailTo="wv-notifications@tavisca.com|NationalAccts@worldventures.com"
+         PaperCheckApprovalEmailFrom="corpaccts@rovia.com"
+         PaperCheckApprovalEmailTo="wv-notifications@tavisca.com|NationalAccts@worldventures.com"
+         BCC="wv-notifications@tavisca.com"
+         AllowFraudCheck="false"/>
+    <add name="b2bCloseInvoice" type="handler"
+         NotificationFrom="corpaccts@rovia.com"
+         NotificationTo="wv-notifications@tavisca.com"
+         NotificationCC="cbo@tavisca.com"
+         NotificationBCC="wv-notifications@tavisca.com"
+         RCSFreeProductSeries="RCS_Escape:RCS-525E_000000|RCS_Premium:RCS-525P_000000|RCS_Executive:RCS-525X_000000"
+         RCSInitialProductSeries="RCS_Escape:RCS-525E_001999|RCS_Premium:RCS-525P_002499|RCS_Executive:RCS-525X_006999"
+         RCSMonthlyProductSeries="RCS_Escape:RCS-625E_001995|RCS_Premium:RCS-625P_001995|RCS_Executive:RCS-625X_006999"
+         RCSProductAmount="B2B-525S_001995:19.95|B2B-5250_001995:19.95|B2B-6250_001995:19.95|RCS-525E_001999:19.99|RCS-525P_002499:24.99|RCS-525X_006999:69.99|RCS-625E_001995:19.99|RCS-625P_001995:24.99|RCS-625X_006999:69.99"/>
+    <add name="bulkMembershipUpdate" type="handler"
+            VideoPlusMembershipTypes="0,4,5,6,7"
+            VideoPlusUrl="https://wvemailvideo.com/welcome/vp_sso.php"
+            NOXUrl="http://www.dreamteambuilder.biz/api/wv"
+            RequestType="GET"
+            MyAssistURL="https://api.myassist.com/ws1/"
+            WVPassword="552ee708-c6d3-4816-bd0e-080dba46218a"
+            WVPartnerCode="RV1"
+            WVPartnerName="WorldVentures DreamTrips"
+            WVDomesticProductCode="6"
+		    WVInternationalProductCode="115"
+            EmailFrom="BulkMembershipUpdateHandler@worldventures.com"
+            EmailTo="wv-notifications@tavisca.com"
+            ReportFromEmailAddress="BulkMembershipUpdateHandler@worldventures.com"
+            SendExceptionEmails="true"
+            SendSuccessEmails="true"
+            VPKey="95980685-B4DD-AD6A-3AA4-C2457D0439A8_00738724-DEE7-5A06-23C7-ADC4C54390D5"
+            ClientId="WorldVentures"
+         />
+
+
+
+    <add name="AccountCreationNotification" type="handler"
+       EmailTemplateCreateAccount = "CreateAccount"
+       EmailTemplatePreferred = "PreferredAccount"
+       EmailTemplateSiteOwner = "SiteOwner"
+       BaseUrl = "http://{0}.rovia.com"
+       AccountCreationTokenTimeout = "43200"
+       ApplicationName = "TravelPortal_v_1_0"
+       DirectorName = "Rob Baker"
+       SubstituteReferralId = "200000"
+       FromEmailId = "travel@rovia.com"
+       MailBCC = "wv-notifications@tavisca.com"
+       MailAddOverride = ""
+       CreateMailSubject = "Your account details"
+       PreferredMailSubject = "Your preferred account details"
+       SiteOwnerMailSubject = "Preferred customer signup"/>
+
+    <add name="PaySoftCash" type="handler"
+     EmailTo= "rovia-notifications@tavisca.com"
+     EmailFrom= "travel@rovia.com"
+     SendSuccessEmails= "false"
+     SecurityApplicationName= "vexiere"
+     SecurityUsername= "demouser"
+     SecurityPassword= "demouser123!@#"
+     DefaultDollarEquivalentValue= "1"
+     DefaultExpiryDays= "365"
+     DefaultMinimumBalance= "200" />
+
+
+    <add name="PaySoftCashCreditRequest" type="handler"
+      ActionCode = "PaySoftCashRequest"
+      ApplicationName = "PaySoftCashHandler"
+      EmailTo = "rovia-notification@tavisca.com"
+      EmailFrom = "travel@rovia.com"
+      SendSuccessEmails = "false"
+      ApplicationNameReasonMapping = "DTL Travel Commissions:DTL monthly commissions|DT Mall Commissions:DT mall earning|Promotional Rewards:Internal promotions"
+      SourceSite = "CSR"/>
+
+    <add name="ProcessTramsFileRequest" type="handler"
+           ActionCode = "CreateTramsInvoice"
+           EmailFrom = "TramsFileServiceHandler@rovia.com"
+           EmailTo = "kkhiara@tavisca.com"
+           SendSuccessEmails = "false"
+           SourceSite = "CSR"/>
+
+    <add name="CreateTramsInvoice" type="handler"
+         SuccessStatus="Invoiced"
+         FailureStatus="NotInvoiced"
+         />
+
+
+    <add name="sendFaxHandler"
+         type="handler"
+         NotificationContext="All|OnError|OnSuccess"
+         NotificationTo="wv-notifications@tavisca.com"
+         NotificationBcc="mpatil@tavisca.com"
+         NotificationFrom="SendFaxHandler@worldventures.com">
+    </add>
+    <add name="payCommisionHandler" type="handler" SendFailureEmail="Y" FromEmailId="rovia-notification@tavisca.com"
+      ToEmailIdList="mborade@tavisca.com" />
+    <add name="payoneerHandler" type="handler" ActionCodePayoneeerAccountStatusMap="confirmation,1|approved,4|decline,3" PayoneerApplicationName="Payoneer" EmailFrom="PayoneerHandler@worldventures.com" EmailTo="wv-notifications@tavisca.com" />
+
+    <add name="bulkMembershipCancellation" type="handler"
+          SendNotification="true"
+          NotificationTo= "wv-notifications@tavisca.com"
+          NotificationBcc= "pkumbhar@tavisca.com"
+          NotificationFrom= "bulkMembershipCancellation@worldventures.com"
+          BuyOfBuysURL= "http://dt.buyofbuys.com/api/bob-user-api.php"
+          CreateActionKey="create_user"
+          DeleteActionKey="delete_user"
+          StatusCodeToConsider="Deleted|Auto Cancelled|Suspended|Terminated|Resigned"
+          APIKey="8754854"
+          RequestType= "GET"
+          BuyOfBuysDeleteResponseType="delete is set"
+          StatusCode="Deleted|Auto Cancelled|Suspended|Terminated|Resigned|ChargeBack"
+          SendSuccessNotification="true"
+          SendFailureNotification="true"
+          MyAssistURL="https://api.myassist.com/ws1/"
+          WVPassword="552ee708-c6d3-4816-bd0e-080dba46218a"
+          WVPartnerCode="RV1"
+          WVPartnerName="WorldVentures DreamTrips"/>
+
+    <add name="b2bNotifyInvoiceApproval" type="handler"
+        NotificationFrom="corpaccts@rovia.com"
+        NotificationTo="NationalAccts@worldventures.com"
+        NotificationCC="wv-notifications@tavisca.com"
+        NotificationBCC="wv-notifications@tavisca.com"/>
+
+
+
+    <add name="createOrderComposite" type="handler" innerHandlers="OfflineSignUp|lyrisSync|accountMembershipUpdate|accountAccessUpdate|accountReactivation|BuyOfBuysHandler|VideoPlusHandler|NOXSyncHandler|importInTRAMS|MyAssist|migratePreferredCustomers|SetupWebsiteUrls|grapevineAccountHandler|AutoshipCancellation|" />
+    <add name="updateOrderComposite" type="handler" innerHandlers="" />
+
+    <add name="updateCustomerComposite" type="handler" innerHandlers="profileSyncHandler|accountReactivation|lyrisSync|accountMembershipUpdate|BuyOfBuysHandler|VideoPlusHandler|NOXSyncHandler|grapevineAccountHandler|MyAssist|AccountUpdate|SetupWebsiteUrls|MySqlProvider|AccountCancellation" />
+
+    <add name="createCustomerComposite" type="handler" innerHandlers="profileSyncHandler|MySqlProvider" />
+    <add name="onlineSignupAndOrder" type="handler" innerHandlers="onlineSignupHandler|VideoPlusShipment" />
+
+    <add name="iPayoutComposite" type="handler" innerHandlers="iPayoutEWalletPendingPayment" />
+
+    <add name="updateCustomerInPendingThirdPartiesComposite"  type="handler" innerHandlers="importinTRAMS" />
+    <add name="createCustomerInPendingThirdPartiesComposite"  type="handler" innerHandlers="importInTRAMS" />
+    <add name="createAccountComposite"  type="handler" innerHandlers="lyrisSync|grapevineAccountHandler" />
+    <add name="updateLocalCustomerComposite"  type="handler" innerHandlers="lyrisSync|grapevineAccountHandler" />
+
+    <add name="FusebillDirectChannelCreateCustomer" type="handler" innerHandlers="MyAssist|lyrisSync" />
+    <add name="FusebillDirectChannelUpdateCustomer" type="handler" innerHandlers="MyAssist|lyrisSync" />
+
+    <add name ="FusebillCreateSubscription" type ="handler" innerHandlers="lyrisSync|SoftCashMemberCreation|UpdateB2BMemberRole" />
+    <add name="FusebillCreateMeteredSubscription" type="handler" innerHandlers="SoftCashMemberCreation" />
+
+    <!-- simply add this handler in innerhandlers ""-->
+
+    <add name="FusebillIndirectChannelCreateCustomer" type="handler" innerHandlers="MyAssist|lyrisSync|ExigoAccountCreation" />
+    <add name="FusebillIndirectChannelUpdateCustomer" type="handler" innerHandlers="MyAssist|lyrisSync|ExigoAccountCreation" />
+
+
+    <add name="FusebillCreateCustomer" type="handler" innerHandlers="" />
+    <add name="FusebillUpdateCustomer" type="handler" innerHandlers="UpdateB2BMemberRole" />
+
+    <add name="AccountFlushCacheHandler" type="handler"/>
+    <add name="tramsSyncHandler" type="handler"/>
+
+  </plugins>
+  <!--==========================action mapping to handlers ==================================== -->
+  <actions>
+    <!-- map action codes to handlers. Names should match the names above -->
+    <!-- Example -->
+    <!-- 
+    <map actionCode="code1" toHandlers="signupHandlerA|signupHandlerA" withThreads="" andDelay="" isEnabled="true"/>
+    <map actionCode="code2" toHandlers="signupHandlerA|signupHandlerA" withThreads="2" andDelay="" isEnabled="true"/>
+    -->
+    <map actionCode="OnlineSignupAndOrder" toHandlers="onlineSignupAndOrder"/>
+    <map actionCode="CreateAccount" toHandlers="createAccountComposite" />
+    <map actionCode="CreateOrder" toHandlers="createOrderComposite" />
+
+    <map actionCode="CreateCustomer" toHandlers="createCustomerComposite" />
+
+    <map actionCode="UpdateCustomer" toHandlers="updateCustomerComposite" />
+    <map actionCode="UpdateLocalCustomer" toHandlers="updateLocalCustomerComposite"/>
+
+    <!--Rovia callbacks-->
+    <map actionCode="NotifyFrontOfficeNewAccount" toHandlers="AccountCreationNotification"/>
+    <map actionCode="PaySoftCashRequest" toHandlers="PaySoftCash"/>
+    <map actionCode="PaySoftCashCreditRequest" toHandlers="PaySoftCashCreditRequest"/>
+    <map actionCode="ProcessTramsFileRequest" toHandlers="ProcessTramsFileRequest"/>
+    <map actionCode="CreateTramsInvoice" toHandlers="CreateTramsInvoice" />
+    <map actionCode="PayCommission" toHandlers="payCommisionHandler" />
+    <map actionCode="savepackage" toHandlers="dtmInterfacing"/>
+    <map actionCode="savebooking" toHandlers="dtmInterfacing"/>
+    <map actionCode="groupformsfees" toHandlers="dtmInterfacing"/>
+    <map actionCode="aircancelbooking" toHandlers="dtmInterfacing" />
+    <map actionCode="airsavebooking" toHandlers="dtmInterfacing" />
+    <map actionCode="cancelbooking" toHandlers="dtmInterfacing" />
+
+    <!-- IPayout - Payoneer -->
+    <map actionCode="IPayoutPendingPaymentCallback" toHandlers="iPayoutComposite" />
+    <map actionCode="confirmation" toHandlers="payoneerHandler" />
+    <map actionCode="approved" toHandlers="payoneerHandler" />
+    <map actionCode="decline" toHandlers="payoneerHandler" />
+
+    <!--CSR callbacks-->
+    <map actionCode="BulkUpdate" toHandlers="bulkMembershipUpdate"/>
+    <map actionCode="BulkCancel" toHandlers="bulkMembershipCancellation" />
+
+    <map actionCode="UpdateCustomerInTrams" toHandlers="tramsSyncHandler" />
+    <map actionCode="CreateCustomerInTrams" toHandlers="tramsSyncHandler" />
+    <map actionCode="SendFax" toHandlers="sendFaxHandler" />
+    <map actionCode="FusebillDirectChannelCreateCustomer" toHandlers="FusebillDirectChannelCreateCustomer"/>
+    <map actionCode="FusebillDirectChannelUpdateCustomer" toHandlers="FusebillDirectChannelUpdateCustomer"/>
+    <map actionCode="FusebillIndirectChannelCreateCustomer" toHandlers="FusebillIndirectChannelCreateCustomer"/>
+    <map actionCode="FusebillIndirectChannelUpdateCustomer" toHandlers="FusebillIndirectChannelUpdateCustomer"/>
+    <map actionCode="FusebillMeteredSubscriptionCreated" toHandlers="FusebillCreateMeteredSubscription"/>
+    <map actionCode="FusebillCreateCustomer" toHandlers="FusebillCreateCustomer"/>
+    <map actionCode="FusebillUpdateCustomer" toHandlers="FusebillUpdateCustomer"/>
+    <map actionCode="FusebillSubscriptionCreated" toHandlers="FusebillCreateSubscription"/>
+    <map actionCode="FlushMemCacheAccount" toHandlers="AccountFlushCacheHandler"/>
+  </actions>
+</settings>
